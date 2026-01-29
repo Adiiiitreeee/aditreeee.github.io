@@ -1,38 +1,15 @@
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const message = document.getElementById("message");
-const music = document.getElementById("bgMusic");
+const noBtn = document.getElementById("no");
 
-yesBtn.addEventListener("click", () => {
-  message.textContent = "YAYYYY 💕 I knew it!!";
-  music.volume = 0.4;
-  music.play();
-  spawnHearts();
-});
+let moveX = 0;
+let moveY = 0;
 
 noBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 100);
-  noBtn.style.position = "absolute";
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
+  moveX += Math.random() * 40 - 20;
+  moveY += Math.random() * 30 - 15;
+
+  moveX = Math.max(-120, Math.min(120, moveX));
+  moveY = Math.max(-80, Math.min(80, moveY));
+
+  noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
 });
 
-function spawnHearts() {
-  for (let i = 0; i < 20; i++) {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💗";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
-  }
-}
-
-function toggleMusic() {
-  music.muted = !music.muted;
-}
